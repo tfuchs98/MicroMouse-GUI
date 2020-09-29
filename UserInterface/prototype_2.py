@@ -8,6 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import requests
 
 
 class Ui_MicroMouse(object):
@@ -25,18 +26,19 @@ class Ui_MicroMouse(object):
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(150, 20, 181, 71))
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(14)
         self.label_2.setFont(font)
         self.label_2.setTextFormat(QtCore.Qt.AutoText)
         self.label_2.setObjectName("label_2")
-        self.beginMaze = QtWidgets.QPushButton(self.centralwidget)
-        self.beginMaze.setGeometry(QtCore.QRect(380, 160, 81, 21))
-        self.beginMaze.setObjectName("beginMaze")
+        self.connectButton = QtWidgets.QPushButton(self.centralwidget)
+        self.connectButton.setGeometry(QtCore.QRect(380, 160, 81, 21))
+        self.connectButton.setObjectName("connectButton")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(300, 20, 201, 71))
-        font = QtGui.QFont()
-        font.setPointSize(16)
+        fontSmall = QtGui.QFont()
+        fontSmall.setPointSize(10)
         self.label_3.setFont(font)
+        self.connectButton.setFont(fontSmall)
         self.label_3.setObjectName("label_3")
         self.ArrowLabel = QtWidgets.QLabel(self.centralwidget)
         self.ArrowLabel.setGeometry(QtCore.QRect(360, 220, 121, 101))
@@ -48,6 +50,8 @@ class Ui_MicroMouse(object):
         self.textEdit.setGeometry(QtCore.QRect(310, 120, 221, 21))
         self.textEdit.setObjectName("textEdit")
         self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit.setFont(fontSmall)
+        self.textEdit_2.setFont(fontSmall)
         self.textEdit_2.setGeometry(QtCore.QRect(30, 390, 501, 141))
         self.textEdit_2.setObjectName("textEdit_2")
         MicroMouse.setCentralWidget(self.centralwidget)
@@ -70,12 +74,13 @@ class Ui_MicroMouse(object):
 
         self.retranslateUi(MicroMouse)
         QtCore.QMetaObject.connectSlotsByName(MicroMouse)
+        self.connectButton.clicked.connect(self.connect)
 
     def retranslateUi(self, MicroMouse):
         _translate = QtCore.QCoreApplication.translate
         MicroMouse.setWindowTitle(_translate("MicroMouse", "MainWindow"))
         self.label_2.setText(_translate("MicroMouse", "Welcome to"))
-        self.beginMaze.setText(_translate("MicroMouse", "Connect"))
+        self.connectButton.setText(_translate("MicroMouse", "Connect"))
         self.label_3.setText(_translate("MicroMouse", "Micro Mouse"))
         self.menuMicro_Mouse.setTitle(_translate("MicroMouse", "Micro Mouse"))
         self.menuMaze.setTitle(_translate("MicroMouse", "Maze"))
@@ -94,6 +99,13 @@ class Ui_MicroMouse(object):
         pixmap = pixmap.scaled(self.ArrowLabel.width(), self.ArrowLabel.height(), QtCore.Qt.KeepAspectRatio)
         self.ArrowLabel.setPixmap(pixmap)
         self.ArrowLabel.setAlignment(QtCore.Qt.AlignCenter)
+
+
+    def connect(self):
+
+        print(requests.get("http://127.0.0.1:5000/connect"))
+        self.textEdit_2.setText("Connecting to 127.0.0.1 on Port 20...")
+        self.textEdit_2.append("Connected to 127.0.0.1")
 
 if __name__ == "__main__":
     import sys
