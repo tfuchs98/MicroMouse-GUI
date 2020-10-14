@@ -8,10 +8,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from UserInterface import MouseRequests
 import requests
+import asyncio
 
 
 class Ui_MicroMouse(object):
+    Mouse = MouseRequests.MouseRequest()
+
+
     def setupUi(self, MicroMouse):
         MicroMouse.setObjectName("MicroMouse")
         MicroMouse.resize(558, 593)
@@ -102,10 +107,15 @@ class Ui_MicroMouse(object):
 
 
     def connect(self):
+        string = self.textEdit.toPlainText()
+        print(string)
+        self.Mouse.setUrl(string)
+        self.Mouse.MoveRight()
+        print('Done')
+        # self.textEdit_2.setText("Connecting to " + string)
+        # self.textEdit_2.append("Connected to 127.0.0.1")
+# http://127.0.0.1:5000/connect
 
-        print(requests.get("http://127.0.0.1:5000/connect"))
-        self.textEdit_2.setText("Connecting to 127.0.0.1 on Port 20...")
-        self.textEdit_2.append("Connected to 127.0.0.1")
 
 if __name__ == "__main__":
     import sys

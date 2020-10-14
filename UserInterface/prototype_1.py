@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MicroMouse(object):
     def setupUi(self, MicroMouse):
         MicroMouse.setObjectName("MicroMouse")
-        MicroMouse.resize(543, 465)
+        MicroMouse.resize(700, 600)
         self.centralwidget = QtWidgets.QWidget(MicroMouse)
         self.centralwidget.setObjectName("centralwidget")
         self.imageLabel = QtWidgets.QLabel(self.centralwidget)
